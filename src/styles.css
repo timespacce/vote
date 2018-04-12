@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+#body {
+    animation: animated_background 5s ease infinite;
+    background: linear-gradient(45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 700% 1400%;
+}
+
+@keyframes animated_background {
+	0% {
+		background-position: 0% 50%
+    }
+    25% {
+		background-position: 50% 50%
+	}
+	50% {
+		background-position: 100% 50%
+    }
+    75% {
+		background-position: 50% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}

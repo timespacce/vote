@@ -1,0 +1,17 @@
+npm i -g npm
+npm install -g @angular/cli
+ng new <app-name>
+npm install --save @angular/material @angular/cdk
+npm install --save @angular/animations
+
+heroku login
+
+git init
+git add .
+git commit -m "first commit"
+
+heroku create
+git push heroku master:master
+
+heroku addons:create heroku-postgresql (Aumatisch angepasst anhand der application.properties)
+postgres://dzcaawiqrjwtmj:0a745f3239e3896ea0745da69760f4ab91a9acee4a84de1bd7700ad5fbd03365@ec2-54-235-193-34.compute-1.amazonaws.com:5432/d79msksdmfdv9v
