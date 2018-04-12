@@ -39,7 +39,7 @@ export class AppComponent {
     })
   }
 
-  openSnackBarOnCredentials(controller: string) {
+  openSnackBarOnCredentials() {
     let credentialValid = this.credentialForm.get('credentialCtrl').valid
     if (credentialValid) {
       this._snackBar.open('Successful', '', { duration: 1000 })
@@ -49,7 +49,7 @@ export class AppComponent {
     }
   }
 
-  openSnackBarOnVote(controller: string) {
+  openSnackBarOnVote() {
     let voteValid = this.voteForm.get('voteCtrl').valid
     if (voteValid) {
       this._snackBar.open('Successful', '', { duration: 1000 })
