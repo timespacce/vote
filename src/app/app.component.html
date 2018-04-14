@@ -9,7 +9,7 @@
       <ng-template matStepLabel>Code</ng-template>
       <form [formGroup]="credentialForm">
         <mat-form-field>
-          <input matInput placeholder="Vote Code" formControlName="credentialCtrl" required>
+          <input matInput placeholder="Въведи Vote Code" formControlName="credentialCtrl" required>
         </mat-form-field>
         <div>
           <button (click)="openSnackBarOnCredentials()" mat-raised-button matStepperNext color="primary">Next</button>
@@ -24,11 +24,29 @@
       <ng-template matStepLabel>Vote</ng-template>
       <form [formGroup]="voteForm">
           <mat-list role="list">
+            <mat-list-item>
+              <p>На 11 май (петък) възнамерявам да празнувам рождения си ден. Идва ли ти се?</p>
+            </mat-list-item>
             <mat-list-item role="listitem" *ngFor="let item of [0, 1]; let i = index">
-                <mat-checkbox [checked]="selected === i" (change)="selected = i" formControlName="voteCtrl" required>
+                <mat-checkbox [checked]="selected === i" (change)="toggleSelect($event, i)" formControlName="voteCtrl" required>
                   {{selectOptions[i]}}
                 </mat-checkbox>
             </mat-list-item>
+            <div *ngIf="selected == 0">
+              <mat-divider id="mat-divider-vote"></mat-divider>
+              <mat-list-item>
+                  <p>Къде ти се ходи?</p>
+                </mat-list-item>
+              <mat-list-item role="listitem">
+                <mat-form-field>
+                  <mat-select [(value)]="preferenced">
+                    <mat-option *ngFor="let preference of preferenceOptions" [value]="preference.value">
+                      {{ preference.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>        
+              </mat-list-item>  
+            </div>
           </mat-list>
           <div>
             <button (click)="openSnackBarOnVote()" mat-raised-button matStepperNext color="primary">Next</button>
@@ -37,7 +55,9 @@
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Results</ng-template>
+        <ng-template matStepLabel></ng-template>
+        <mat-progress-bar *ngIf="show" id="progressBar" mode="indeterminate"></mat-progress-bar>
+        <mat-card>Мерси за гласа ти. По всяко време можеш да го промениш. Поздрави!</mat-card>
     </mat-step>
   </mat-horizontal-stepper>
 </div>
