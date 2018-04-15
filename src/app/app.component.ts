@@ -22,12 +22,12 @@ export class AppComponent {
   code
   selected
   accepted
-  preferenced = 'EAT_AND_DRINK'
+  preferenced
   
 
   show = false
 
-  selectOptions = ["Да", "Не знам, по-скоро не."]
+  selectOptions = ["Да", "Не знам / Не ми се идва"]
   preferenceOptions = [
     { value: 'EAT_AND_DRINK', viewValue: "Някъде да ядем и пием :)"},
     { value: 'DISCO', viewValue: "Опция 1) и mоже диско?"},
@@ -46,8 +46,8 @@ export class AppComponent {
     })
     this.voteForm = this._formBuilder.group({
       'voteCtrl': new FormControl(null, [Validators.required]),
-      'preferenceCtrl': new FormControl(null, [])
-    }, { validator: this.validator })
+      'preferenceCtrl': new FormControl(null, [Validators.required])
+    })
   }
 
   openSnackBarOnCredentials() {
@@ -56,7 +56,7 @@ export class AppComponent {
       this._snackBar.open('Successful', '', { duration: 1000 })
       this.code = this.credentialForm.get('credentialCtrl').value
     } else {
-      this._snackBar.open('Your vote code is not valid', '', { duration: 1000 })
+      this._snackBar.open('Вашият vote code не е валиден', '', { duration: 1000 })
     }
   }
 
@@ -83,26 +83,24 @@ export class AppComponent {
       preferences: this.accepted ? [this.preferenced] : []
     }
 
+     
+
     this.http
       .post(this.REMOTE_URL + "count", body)
       .subscribe(data => {
-        console.info(data)
         this.show = false
       })
   }
 
   toggleSelect(event: MatCheckboxChange, i) {
-    this.selected = event.checked ? i : undefined
-    console.info(this.selected, this.preferenced)
-  }
-
-  togglePreference(event: MatCheckboxChange, i) {
-    this.preferenced = i
-    console.info("hehe")
-  }
-
-  validator(group: FormGroup) {
-      const forbidden = (group.controls['preferenceCtrl'].value == undefined) && (group.controls['voteCtrl'].value == 0)
-      return forbidden ? {'error': true} : null;
+    if (this.selected == 1 && i == 0) {
+      this.voteForm.get('preferenceCtrl').setValue(undefined)
     }
+
+    this.selected = event.checked ? i : undefined
+
+    if (this.selected == 1) {
+      this.voteForm.get('preferenceCtrl').setValue('I_DONT_CARE')
+    }
+  }
 }
