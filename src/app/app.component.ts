@@ -13,7 +13,7 @@ import { RequestOptions } from '@angular/http'
 export class AppComponent {
   title = 'app'
 
-  @ViewChild('progressBar') progressBar: any;
+  @ViewChild('stepper') stepper: MatStepper;
 
   isLinear = true
   credentialForm: FormGroup
@@ -46,7 +46,8 @@ export class AppComponent {
     })
     this.voteForm = this._formBuilder.group({
       'voteCtrl': new FormControl(null, [Validators.required]),
-      'preferenceCtrl': new FormControl(null, [Validators.required])
+      'preferenceCtrl': new FormControl(null, [Validators.required]),
+      'clickCtrl': new FormControl(null, [Validators.required])
     })
   }
 
@@ -65,6 +66,8 @@ export class AppComponent {
     let preferenceValid = this.voteForm.get('preferenceCtrl').valid
     if ((this.selected == 0 && preferenceValid) || this.selected == 1) {
       this._snackBar.open('Successful', '', { duration: 1000 })
+      this.voteForm.get('clickCtrl').setValue('clicked')
+      this.stepper.next()
       this.accepted = this.selected == 0
       this.showResult(this.code, this.accepted)
     } else if (voteValid == false){

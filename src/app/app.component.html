@@ -1,7 +1,7 @@
 <div id="main-div">
   <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
 
-  <mat-horizontal-stepper linear>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <ng-template matStepperIcon="done">
       <mat-icon>done</mat-icon>
     </ng-template>
@@ -54,13 +54,13 @@
             </mat-list-item>
           </div>
           <mat-list-item>
-            <button (click)="openSnackBarOnVote()" mat-raised-button matStepperNext color="primary">Изпрати</button>
+            <button (click)="openSnackBarOnVote()" mat-raised-button color="primary">Изпрати</button>
           </mat-list-item>
         </mat-list>
       </form>
     </mat-step>
 
-    <mat-step>
+    <mat-step [editable]="false">
       <ng-template matStepLabel></ng-template>
       <div id="progress-div" *ngIf="show">
         <mat-progress-bar id="progressBar" mode="indeterminate"></mat-progress-bar>
