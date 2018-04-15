@@ -86,7 +86,7 @@ export class AppComponent {
       preferences: this.accepted ? [this.preferenced] : []
     }
 
-     
+    this.voteForm.get('clickCtrl').setValue(undefined)
 
     this.http
       .post(this.REMOTE_URL + "count", body)
