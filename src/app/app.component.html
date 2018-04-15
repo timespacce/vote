@@ -24,8 +24,8 @@
       <ng-template matStepLabel>Vote</ng-template>
       <form [formGroup]="voteForm">
         <mat-list role="list">
-          <mat-list-item>
-            <p>Планирам на 11 май - петък - привечер да празнувам рождения си ден. Идва ли ти се?</p>
+          <mat-list-item id="question-item">
+            <p>Планирам на 11 май - петък - привечер да празнувам рождения си ден, но първо искам да знам дали ще успеем да се съберем. Идва ли ти се?</p>
           </mat-list-item>
           <mat-list-item role="listitem" *ngFor="let item of [0, 1]; let i = index">
               <mat-checkbox [checked]="selected === i" (change)="toggleSelect($event, i)" formControlName="voteCtrl" required>
