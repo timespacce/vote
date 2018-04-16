@@ -27,7 +27,7 @@ export class AppComponent {
 
   show = false
 
-  selectOptions = ["Да", "Не знам / Не мога / Не ми се идва"]
+  selectOptions = ["Да", "Не знам / мога / ми се идва"]
   preferenceOptions = [
     { value: 'EAT_AND_DRINK', viewValue: "Някъде да седнем и хапнем"},
     { value: 'DISCO', viewValue: "Опция 1) и може диско"},
