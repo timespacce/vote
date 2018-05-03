@@ -130,6 +130,9 @@ export class ChartComponent {
             chart: {
                 type: 'line'
             },
+            title: {
+                text: ''
+            },
             yAxis: {
                 title: {
                     text: 'probability density'
