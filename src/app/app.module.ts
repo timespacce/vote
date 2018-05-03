@@ -40,11 +40,18 @@ import {
 
 import { AppComponent } from './app.component'
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms'
+import { ChartComponent } from './chart/chart.component'
+
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import * as threeD from 'highcharts/highcharts-3d.js';
+import * as more from 'highcharts/highcharts-more.src';
+import * as solidGauge from 'highcharts/modules/solid-gauge.src';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -82,9 +89,10 @@ import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms'
     MatStepperModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartModule
   ],
-  providers: [FormBuilder],
-  bootstrap: [AppComponent]
+  providers: [FormBuilder, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
+  bootstrap: [/*AppComponent*/ ChartComponent]
 })
 export class AppModule { }

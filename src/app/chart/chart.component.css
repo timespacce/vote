@@ -1,0 +1,11 @@
+#maps, #chart {
+    height: 400px;
+    width: 100%;
+}
+
+.card-text {
+    font-size: 20px;
+    font-family: unset;
+    font-weight: 400;
+    text-align: center;
+}
