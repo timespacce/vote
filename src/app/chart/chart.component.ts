@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material'
 import * as  Highcharts from 'highcharts'
-import { } from '@types/googlemaps';
+import { } from 'googlemaps';
 
 @Component({
   selector: 'app-chart',
@@ -148,7 +148,8 @@ export class ChartComponent {
             },
             series: [{
                 name: 'N~(0.443, 0.942)',
-                data: line_data
+                data: line_data,
+                type: undefined
             }]
         })
 

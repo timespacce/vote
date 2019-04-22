@@ -3,9 +3,10 @@
 
 #body {
     animation: animated_background 5s ease infinite;
-    background: linear-gradient(45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background: linear-gradient(90deg, #e37350, #c3c52f, #2cca58, #1fa9a3);
     background-size: 700% 1400%;
 }
+
 
 @keyframes animated_background {
 	0% {

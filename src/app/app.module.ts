@@ -93,6 +93,6 @@ import * as solidGauge from 'highcharts/modules/solid-gauge.src';
     ChartModule
   ],
   providers: [FormBuilder, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
-  bootstrap: [/*AppComponent*/ ChartComponent]
+  bootstrap: [AppComponent /*ChartComponent*/]
 })
 export class AppModule { }

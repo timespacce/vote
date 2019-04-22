@@ -1,8 +1,21 @@
+// ANGULAR
+
 npm i -g npm
 npm install -g @angular/cli
 ng new <app-name>
 npm install --save @angular/material @angular/cdk
 npm install --save @angular/animations
+
+// GITHUB PAGES
+
+1. Link to github repository : git remote add origin https://github.com/timespacce/vote.github
+2. Push to github repository : git push -u origin master
+3. Add "https://timespacce.github.io/vote/" to index.html as href and build with href reference : ng build --prod --base-href "https://timespacce.github.io/vote/"
+4. Publish to github.io : ngh
+5. Open https://timespacce.github.io/vote/
+ng build --prod --base-href "https://timespacce.github.io/vote/"
+
+// HEROKU
 
 heroku login
 
@@ -15,6 +28,10 @@ git push heroku master:master
 
 heroku addons:create heroku-postgresql (Aumatisch angepasst anhand der application.properties)
 postgres://dzcaawiqrjwtmj:0a745f3239e3896ea0745da69760f4ab91a9acee4a84de1bd7700ad5fbd03365@ec2-54-235-193-34.compute-1.amazonaws.com:5432/d79msksdmfdv9v
+
+// POSTGRE
+
+.\pg_ctl.exe -D C:\Users\todorinski\Downloads\Software\database_management_systems\postgresql\data start
 
 //
 

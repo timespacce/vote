@@ -1,0 +1,49 @@
+{
+    "spring_backend": {
+        "LOCAL_URL": "http://localhost:8080/",
+        "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
+        "BACKEND_URL": "http://localhost:8080/"
+    },
+    "vote_app": {
+        "stepper_1_title": [
+            "Glasuvane",
+            "Voting"
+        ],
+        "credential_input_field": "Въведи Vote Code",
+        "credential_snackbar_answers": {
+            "success": "Successful",
+            "error": "Вашият vote code не е валиден"
+        },
+        "main_question": "Идва ли ти се на 10 май на рожден ден?",
+        "sub_question": "Къде ти се ходи?",
+        "opinions": [
+            {
+                "value": "YES",
+                "viewValue": "Да"
+            },
+            {
+                "value": "NO",
+                "viewValue": "Не знам / мога / ми се идва"
+            }
+        ],
+        "preference_options": [
+            {
+                "value": "EAT_AND_DRINK",
+                "viewValue": "Някъде да седнем и хапнем"
+            },
+            {
+                "value": "DISCO",
+                "viewValue": "Опция 1) и може диско"
+            },
+            {
+                "value": "I_DONT_CARE",
+                "viewValue": "? ? ? se mi e taa"
+            }
+        ],
+        "vote_snackbar_answers": {
+            "success": "Successful",
+            "error": "Моля изберете опция"
+        },
+        "preferences_hint": "Моля изберете опция"
+    }
+}

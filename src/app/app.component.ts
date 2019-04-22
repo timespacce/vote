@@ -4,6 +4,11 @@ import { MatSnackBar, MatCheckboxChange } from '@angular/material';
 import { MatStepper } from '@angular/material';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http'
+import { Opinion } from '../model/opinion';
+import { Preference } from '../model/preference';
+
+import app_configuration from '../assets/app_configuration.json';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-root',
@@ -11,99 +16,110 @@ import { RequestOptions } from '@angular/http'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  /// meta
   title = 'app'
 
   @ViewChild('stepper') stepper: MatStepper;
+
+  /// access to enums in html only via variable
+  opinions = Opinion
+  preferences = Preference
+  vote_app
 
   isLinear = true
   credentialForm: FormGroup
   voteForm: FormGroup
 
-  code
-  selected
-  accepted
-  preferenced
-  
+  /// used
+  code: string = ""
+  opinion: Opinion = Opinion.UNDEFINED
+  preference: Preference = Preference.UNDEFINED
 
-  show = false
-
-  selectOptions = ["Да", "Не знам / мога / ми се идва"]
-  preferenceOptions = [
-    { value: 'EAT_AND_DRINK', viewValue: "Някъде да седнем и хапнем"},
-    { value: 'DISCO', viewValue: "Опция 1) и може диско"},
-    { value: 'I_DONT_CARE', viewValue: "? ? ? se mi e taa"}
-  ]
-
-  LOCAL_URL: string = "http://localhost:8080/"
-
-  REMOTE_URL: string = "https://boiling-plateau-33382.herokuapp.com/"
+  sent: boolean = true
 
   constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, private http: HttpClient) { }
 
   ngOnInit() {
+    /// initialize application configuration
+    this.vote_app = app_configuration
+    /// set sign in code
     this.credentialForm = this._formBuilder.group({
       'credentialCtrl': ['', Validators.pattern('([A-Z][0-9]){2}')]
     })
+    /// set required input fields
     this.voteForm = this._formBuilder.group({
-      'voteCtrl': new FormControl(null, [Validators.required]),
+      'opinionCtrl': new FormControl(null, [Validators.required]),
       'preferenceCtrl': new FormControl(null, [Validators.required]),
-      'clickCtrl': new FormControl(null, [Validators.required])
+      'submitCtrl': new FormControl(null, [Validators.required])
     })
   }
 
-  openSnackBarOnCredentials() {
-    let credentialValid = this.credentialForm.get('credentialCtrl').valid
-    if (credentialValid) {
-      this._snackBar.open('Successful', '', { duration: 1000 })
-      this.code = this.credentialForm.get('credentialCtrl').value
+  openSnackBarOnClick(valid: boolean, success: string, error: string) {
+    console.info(valid, success, error)
+    if (valid) {
+      this._snackBar.open(success, '', { duration: 1000 })
     } else {
-      this._snackBar.open('Вашият vote code не е валиден', '', { duration: 1000 })
+      this._snackBar.open(error, '', { duration: 1000 })
     }
   }
 
   openSnackBarOnVote() {
-    let voteValid = this.voteForm.get('voteCtrl').valid
-    let preferenceValid = this.voteForm.get('preferenceCtrl').valid
-    if ((this.selected == 0 && preferenceValid) || this.selected == 1) {
-      this._snackBar.open('Successful', '', { duration: 1000 })
-      this.voteForm.get('clickCtrl').setValue('clicked')
+    let accept: boolean = this.opinion == Opinion.YES && this.preference != Preference.UNDEFINED
+    let declined: boolean = this.opinion == Opinion.NO && this.preference == Preference.UNDEFINED
+
+    if (accept || declined) {
+      this._snackBar.open(this.vote_app.vote_app.vote_snackbar_answers.success, '', { duration: 1000 })
+      this.voteForm.get("submitCtrl").setValue(true)
       this.stepper.next()
-      this.accepted = this.selected == 0
-      this.showResult(this.code, this.accepted)
-    } else if (voteValid == false){
-      this._snackBar.open('Моля изберете опция', '', { duration: 1000 })
+      this.showResult()
     } else {
-      this._snackBar.open('Моля изберете опция', '', { duration: 1000 })
+      this._snackBar.open(this.vote_app.vote_app.vote_snackbar_answers.error, '', { duration: 1000 })
     }
   }
 
-  showResult(code: string, selected: number) {
-    this.show = true
+  showResult() {
+    /// show notification
+    this.sent = false
 
+    /// data
     let body = {
       sender: this.code,
-      accepted: this.accepted,
-      preferences: this.accepted ? [this.preferenced] : []
+      opinion: this.opinion,
+      preferences: [this.preference]
     }
 
-    this.voteForm.get('clickCtrl').setValue(undefined)
-
+    /// sent to backend and on success stop the notification
     this.http
-      .post(this.REMOTE_URL + "count", body)
+      .post(this.vote_app.spring_backend.BACKEND_URL + "count", body)
       .subscribe(data => {
-        this.show = false
+        /// stop notification
+        this.sent = true
+        /// disable forward header navigation
+        this.voteForm.get("submitCtrl").reset()
       })
   }
 
-  toggleSelect(event: MatCheckboxChange, i) {
-    if (this.selected == 1 && i == 0) {
-      this.voteForm.get('preferenceCtrl').setValue(undefined)
+  toggleSelect(event: MatCheckboxChange, value: Opinion) {
+    /// none
+    if (event.checked == false) {
+        this.opinion = Opinion.UNDEFINED
+        this.preference = Preference.UNDEFINED
+        this.voteForm.get("opinionCtrl").reset()
+        this.voteForm.get("preferenceCtrl").reset()
+        return
     }
 
-    this.selected = event.checked ? i : undefined
+    /// yes
+    if (value == Opinion.YES) {
+      this.opinion = value
+      return
+    }
 
-    if (this.selected == 1) {
-      this.voteForm.get('preferenceCtrl').setValue('I_DONT_CARE')
+    /// no
+    if (value == Opinion.NO) {
+      this.opinion = value
+      this.preference = Preference.UNDEFINED
+      this.voteForm.get("preferenceCtrl").setValue(this.preference)
     }
   }
 }
