@@ -2,13 +2,15 @@
     "spring_backend": {
         "LOCAL_URL": "http://localhost:8080/",
         "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
-        "BACKEND_URL": "http://localhost:8080/"
+        "BACKEND_URL": "https://boiling-plateau-33382.herokuapp.com/"
     },
     "vote_app": {
         "stepper_1_title": [
             "Glasuvane",
             "Voting"
         ],
+        "info_badge_count": "1",
+        "info_badge_hidden": "false",
         "credential_input_field": "Въведи Vote Code",
         "credential_snackbar_answers": {
             "success": "Successful",
@@ -44,6 +46,9 @@
             "success": "Successful",
             "error": "Моля изберете опция"
         },
-        "preferences_hint": "Моля изберете опция"
+        "preferences_hint": "Моля изберете опция",
+        "sending_text": "Моля изкачайте, докато cloud сървъра стартира и синхронизира вашия request",
+        "sent_text_header": "Мерси за гласа ти.",
+        "sent_text_footer": "По всяко време можеш да го промениш чрез клик в/у стъпка 2 или преминавайки през процеса отначало (browser refresh)"
     }
 }
