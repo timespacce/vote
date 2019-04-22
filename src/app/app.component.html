@@ -15,7 +15,7 @@
         <div>
           <button (click)="openSnackBarOnClick(credentialForm.valid, 
           vote_app.vote_app.credential_snackbar_answers.success, 
-          vote_app.vote_app.credential_snackbar_answers.error)" mat-raised-button matStepperNext color="primary">Напред</button>
+          vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary">Напред</button>
         </div>
       </form>
     </mat-step>
@@ -57,7 +57,7 @@
             </mat-list-item>
           </div>
           <mat-list-item>
-            <button (click)="openSnackBarOnVote()" mat-raised-button color="primary">Изпрати</button>
+            <button (click)="openSnackBarOnVote()" mat-stroked-button color="primary">Изпрати</button>
           </mat-list-item>
         </mat-list>
       </form>
@@ -67,15 +67,19 @@
       <ng-template matStepLabel></ng-template>
       <div id="progress-div" *ngIf="sent == false">
         <mat-progress-bar id="progressBar" mode="indeterminate"></mat-progress-bar>
-        <mat-card>Моля изкачайте, докато cloud сървъра стартира и синхронизира вашия request</mat-card>
+        <mat-card>{{vote_app.vote_app.sending_text}}</mat-card>
       </div>
       <div id="information-div" *ngIf="sent">
         <mat-card>
-          <p>Мерси за гласа ти.</p>
-          <p>По всяко време можеш да го промениш чрез клик в/у стъпка 2 или преминавайки през процеса отначало (browser
-            refresh)</p>
+          <p>{{vote_app.vote_app.sent_text_header}}</p>
+          <p>{{vote_app.vote_app.sent_text_footer}}</p>
         </mat-card>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+
+  <button id="info_button" mat-stroked-button color="primary" (click)="showInfo()"
+   matBadge="{{vote_app.vote_app.info_badge_count}}" matBadgePosition="before" matBadgeColor="accent" matBadgeHidden="{{vote_app.vote_app.info_badge_hidden}}">
+    <mat-icon>info</mat-icon>
+  </button>
 </div>

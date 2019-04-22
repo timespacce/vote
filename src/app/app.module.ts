@@ -36,11 +36,13 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
+  MatBadgeModule
 } from '@angular/material'
 
 import { AppComponent } from './app.component'
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms'
 import { ChartComponent } from './chart/chart.component'
+import { DialogInfoComponent } from './dialog-info/dialog-info.component'
 
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as threeD from 'highcharts/highcharts-3d.js';
@@ -51,7 +53,8 @@ import * as solidGauge from 'highcharts/modules/solid-gauge.src';
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
+    DialogInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -87,11 +90,13 @@ import * as solidGauge from 'highcharts/modules/solid-gauge.src';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    MatBadgeModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     ChartModule
   ],
+  entryComponents: [DialogInfoComponent],
   providers: [FormBuilder, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
   bootstrap: [AppComponent /*ChartComponent*/]
 })

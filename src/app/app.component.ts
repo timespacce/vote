@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
-import { MatSnackBar, MatCheckboxChange } from '@angular/material';
+import { MatSnackBar, MatCheckboxChange, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatStepper } from '@angular/material';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http'
 import { Opinion } from '../model/opinion';
 import { Preference } from '../model/preference';
+
+import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 
 import app_configuration from '../assets/app_configuration.json';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -37,7 +39,7 @@ export class AppComponent {
 
   sent: boolean = true
 
-  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, private http: HttpClient) { }
+  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
     /// initialize application configuration
@@ -121,5 +123,14 @@ export class AppComponent {
       this.preference = Preference.UNDEFINED
       this.voteForm.get("preferenceCtrl").setValue(this.preference)
     }
+  }
+
+  showInfo() {
+    const dialogRef = this.dialog.open(DialogInfoComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.vote_app.vote_app.info_badge_count -= 1
+      this.vote_app.vote_app.info_badge_hidden = true
+    });
   }
 }
