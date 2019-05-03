@@ -1,11 +1,7 @@
-<mat-card>
-  <mat-card-content>
-    <p class="card-text">Благодаря за бързите отговори!</p>
-    <div id="chart" #charts></div>
-    <p class="card-text">Средното време за отговор е отнело само <b>0.443</b> дена!</p>
-    <div id="line" #line></div>
-    <p class="card-text">Искрено ви каня да заповядате на/в</p>
-    <div id="maps" #maps></div>
-    <p class="card-text">Очаквам ви!</p>
-  </mat-card-content>
-</mat-card>
+<p class="card-text">{{vote_app.vote_app.thank_you_for_responses}}</p>
+<div id="chart" #charts></div>
+<p class="card-text" [innerHTML]="vote_app.vote_app.response_time"></p>
+<div id="line" #line></div>
+<p class="card-text" [innerHTML]="vote_app.vote_app.invitation"></p>
+<div id="maps" #maps></div>
+<p class="card-text">{{vote_app.vote_app.thank_you}}</p>

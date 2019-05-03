@@ -11,6 +11,7 @@ import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 
 import app_configuration from '../assets/app_configuration.json';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,13 @@ export class AppComponent {
     console.info(valid, success, error)
     if (valid) {
       this._snackBar.open(success, '', { duration: 1000 })
+
+      if (this.vote_app.vote_app.vote_finished) {
+        var horizontal_containers = document.getElementsByClassName("mat-horizontal-content-container") as HTMLCollectionOf<HTMLElement>;
+        var horizontal_container = horizontal_containers[0]
+        horizontal_container.style.padding = "5px 5px 5px 5px"
+      }
+
     } else {
       this._snackBar.open(error, '', { duration: 1000 })
     }
@@ -104,11 +112,11 @@ export class AppComponent {
   toggleSelect(event: MatCheckboxChange, value: Opinion) {
     /// none
     if (event.checked == false) {
-        this.opinion = Opinion.UNDEFINED
-        this.preference = Preference.UNDEFINED
-        this.voteForm.get("opinionCtrl").reset()
-        this.voteForm.get("preferenceCtrl").reset()
-        return
+      this.opinion = Opinion.UNDEFINED
+      this.preference = Preference.UNDEFINED
+      this.voteForm.get("opinionCtrl").reset()
+      this.voteForm.get("preferenceCtrl").reset()
+      return
     }
 
     /// yes
