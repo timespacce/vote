@@ -55,7 +55,9 @@
                 <mat-form-field appearance="outline" style="width: 250px">
                   <mat-label>{{vote_app.vote_app.preferences_hint}}</mat-label>
                   <mat-select [(value)]="meeting_preference" formControlName="meeting_preference_controller" required>
-                    <mat-option *ngFor="let preference of vote_app.vote_app.preference_options" [value]="preference.value">
+                    <mat-option *ngFor="let preference of vote_app.vote_app.preference_options"
+                                [value]="preference.value"
+                                (onSelectionChange)="scroll_to_bottom()">
                       {{ preference.viewValue }}
                     </mat-option>
                   </mat-select>
@@ -65,6 +67,24 @@
             </div>
             <div *ngIf="meeting_preference != meeting_preferences.UNDEFINED">
               <mat-list-item style="padding-bottom: 30px">
+                <p>Ще дойдеш ли с някого?</p>
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <mat-form-field appearance="outline" style="width: 250px">
+                  <mat-label>{{vote_app.vote_app.preferences_hint}}</mat-label>
+                  <mat-select [(value)]="participation_form" formControlName="participation_form_controller" required>
+                    <mat-option *ngFor="let participation_form of vote_app.vote_app.participation_form_options"
+                                [value]="participation_form.value"
+                                (onSelectionChange)="scroll_to_bottom()">
+                      {{ participation_form.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-list-item>
+              <mat-divider style="margin-top: 10px;"></mat-divider>
+            </div>
+            <div *ngIf="participation_form != participation_forms.UNDEFINED">
+              <mat-list-item style="padding-bottom: 30px">
                 <p>Кога ще можеш?</p>
               </mat-list-item>
               <mat-list-item role="listitem">
@@ -73,7 +93,7 @@
                   <input matInput [matDatepickerFilter]="meeting_date_filter"
                          [matDatepicker]="picker"
                          (dateChange)="meeting_date_change($event)"
-                         formControlName="meeting_date_controller" required>
+                         formControlName="meeting_date_controller" required readonly>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

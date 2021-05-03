@@ -7,6 +7,7 @@ import {MatStepper} from "@angular/material/stepper";
 import {HttpClient} from '@angular/common/http';
 import {ANSWER} from '../model/ANSWER';
 import {MEETING_PREFERENCE} from '../model/MEETING_PREFERENCE';
+import {PARTICIPATION_FORM} from '../model/PARTICIPATION_FORM';
 
 import {DialogInfoComponent} from './dialog-info/dialog-info.component';
 
@@ -28,6 +29,7 @@ export class AppComponent {
   /// access to enums in html only via variable
   answers = ANSWER
   meeting_preferences = MEETING_PREFERENCE
+  participation_forms = PARTICIPATION_FORM
   isLinear = true
 
   vote_app = undefined
@@ -38,6 +40,7 @@ export class AppComponent {
   code: string = ""
   opinion: ANSWER = ANSWER.UNDEFINED
   meeting_preference: MEETING_PREFERENCE = MEETING_PREFERENCE.UNDEFINED
+  participation_form: PARTICIPATION_FORM = PARTICIPATION_FORM.UNDEFINED
   meeting_date: string = ""
   meeting_date_filter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDate();
@@ -61,6 +64,7 @@ export class AppComponent {
     this.voteForm = this._formBuilder.group({
       'answer_controller': new FormControl(null, [Validators.required]),
       'meeting_preference_controller': new FormControl(null, [Validators.required]),
+      'participation_form_controller': new FormControl(null, [Validators.required]),
       'meeting_date_controller': new FormControl(null, [Validators.required]),
       'submitCtrl': new FormControl(null, [Validators.required])
     })
@@ -76,11 +80,16 @@ export class AppComponent {
 
   meeting_date_change(event: MatDatepickerInputEvent<any>) {
     this.meeting_date = this.datePipe.transform(event.value, 'yyyy-MM-dd HH:mm');
+    this.scroll_to_bottom()
+  }
+
+  scroll_to_bottom() {
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   has_voted() {
-    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.meeting_date != ""
-    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.meeting_date == ""
+    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.participation_form != PARTICIPATION_FORM.UNDEFINED && this.meeting_date != ""
+    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.participation_form == PARTICIPATION_FORM.UNDEFINED && this.meeting_date == ""
 
     let accept: boolean = this.opinion == ANSWER.YES && voted
     let declined: boolean = this.opinion == ANSWER.NO && not_voted
@@ -110,6 +119,7 @@ export class AppComponent {
       sender: this.code,
       answer: this.opinion,
       meeting_preferences: [this.meeting_preference],
+      participation_form: this.participation_form,
       meeting_date: this.meeting_date
     }
 
@@ -129,9 +139,11 @@ export class AppComponent {
     if (event.checked == false) {
       this.opinion = ANSWER.UNDEFINED
       this.meeting_preference = MEETING_PREFERENCE.UNDEFINED
+      this.participation_form = PARTICIPATION_FORM.UNDEFINED
       this.meeting_date = ""
       this.voteForm.get("answer_controller").reset()
       this.voteForm.get("meeting_preference_controller").reset()
+      this.voteForm.get("participation_form_controller").reset()
       this.voteForm.get("meeting_date_controller").reset()
       return
     }
@@ -146,8 +158,10 @@ export class AppComponent {
     if (value == ANSWER.NO) {
       this.opinion = value
       this.meeting_preference = MEETING_PREFERENCE.UNDEFINED
+      this.participation_form = PARTICIPATION_FORM.UNDEFINED
       this.meeting_date = ""
       this.voteForm.get("meeting_preference_controller").setValue(this.meeting_preference)
+      this.voteForm.get("participation_form_controller").setValue(this.participation_form)
       this.voteForm.get("meeting_date_controller").setValue(this.meeting_date)
     }
   }
