@@ -1,10 +1,36 @@
+#stepper {
+  background: rgba(255, 255, 255, 1.00);
+}
+
+#credential_input {
+  width: 6.0ch;
+  background:
+    repeating-linear-gradient(90deg,
+    dimgrey 0,
+    dimgrey 1ch,
+    transparent 0,
+    transparent 1.5ch)
+    0 100%/100% 2px no-repeat;
+  color: dimgrey;
+  font: 4ch consolas, monospace;
+  letter-spacing: .5ch;
+}
+#credential_input:focus {
+  outline: none;
+  color: #3f51b5;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
 #info_button {
     position: fixed;
     bottom: 5px;
     right: 5px;
 }
 
-.mat-badge-active {
+::ng-deep.mat-badge-content.mat-badge-active {
     animation: pulse 1s ease infinite;
 }
 

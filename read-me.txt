@@ -31,7 +31,9 @@ postgres://dzcaawiqrjwtmj:0a745f3239e3896ea0745da69760f4ab91a9acee4a84de1bd7700a
 
 // POSTGRE
 
-.\pg_ctl.exe -D C:\Users\todorinski\Downloads\Software\database_management_systems\postgresql\data start
+.\pg_ctl.exe -D C:\Users\todorinski\ws\DB\Postgres\data start
+.\pg_ctl.exe -D C:\Users\todorinski\ws\DB\Postgres\data stop
+
 
 //
 

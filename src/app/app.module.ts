@@ -1,50 +1,52 @@
-import { BrowserModule } from '@angular/platform-browser'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { NgModule } from '@angular/core'
-import { HttpClientModule } from '@angular/common/http';
+// ANGULAR - CORE
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // ANGULAR - MATERIAL
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule,
-  MatBadgeModule
-} from '@angular/material'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatNativeDateModule } from '@angular/material/core'
 
-import { AppComponent } from './app.component'
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms'
-import { ChartComponent } from './chart/chart.component'
-import { DialogInfoComponent } from './dialog-info/dialog-info.component'
+// CUSTOM - COMPONENTS
+import {AppComponent} from './app.component'
+import {ChartComponent} from './chart/chart.component'
+import {DialogInfoComponent} from './dialog-info/dialog-info.component'
 
-import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+// EXTERNAL - LIBRARIES
+import {ChartModule, HIGHCHARTS_MODULES} from 'angular-highcharts';
 import * as threeD from 'highcharts/highcharts-3d.js';
 import * as more from 'highcharts/highcharts-more.src';
 import * as solidGauge from 'highcharts/modules/solid-gauge.src';
@@ -52,52 +54,57 @@ import * as solidGauge from 'highcharts/modules/solid-gauge.src';
 
 @NgModule({
   declarations: [
+    // CUSTOM
     AppComponent,
     ChartComponent,
     DialogInfoComponent
   ],
   imports: [
+    // CORE
+    HttpClientModule,
+    CommonModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
+    // MATERIAL
     MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
+    MatCheckboxModule,
+    MatButtonModule,
     MatInputModule,
-    MatListModule,
-    MatMenuModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
+    MatFormFieldModule,
     MatRadioModule,
-    MatRippleModule,
     MatSelectModule,
-    MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatStepperModule,
+    MatMenuModule,
+    MatSidenavModule,
     MatBadgeModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    ChartModule
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   entryComponents: [DialogInfoComponent],
-  providers: [FormBuilder, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
+  providers: [DatePipe, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
   bootstrap: [AppComponent /*ChartComponent*/]
 })
-export class AppModule { }
+export class AppModule {
+}

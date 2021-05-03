@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { MatSnackBar } from '@angular/material'
+import {Component, ViewChild} from '@angular/core';
+import {FormBuilder} from '@angular/forms'
+import {MatSnackBar} from '@angular/material/snack-bar'
 import * as  Highcharts from 'highcharts'
-import { } from 'googlemaps';
+import {} from 'googlemaps';
 
 import app_configuration from '../../assets/app_configuration.json';
 
@@ -20,16 +20,20 @@ export class ChartComponent {
 
   vote_app
 
-  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
+  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     /// initialize application configuration
     this.vote_app = app_configuration
+  }
+
+  onAfterViewInit() {
     this.showResult()
   }
 
   showResult() {
-    var line_data = this.vote_app.vote_app.normal_distribution
+    const line_data = this.vote_app.vote_app.normal_distribution;
 
     Highcharts.chart(this.line.nativeElement,
       {
@@ -76,8 +80,8 @@ export class ChartComponent {
           enabled: true,
           labelFormatter: function () {
             var legendIndex = this.index;
-            var legendName = this.series.chart.axes[0].categories[legendIndex];
-            return legendName;
+            // var legendName = this.series.chart.axes[0].categories[legendIndex];
+            return "legend_name";
           }
         },
         xAxis: {

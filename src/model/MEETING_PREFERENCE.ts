@@ -1,4 +1,4 @@
-export enum Preference {
+export enum MEETING_PREFERENCE {
     EAT_AND_DRINK = "EAT_AND_DRINK",
     DISCO = "DISCO",
     I_DONT_CARE = "I_DONT_CARE",

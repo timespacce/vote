@@ -1,82 +1,114 @@
 <div id="main-div">
-    <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+  <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
 
-    <mat-horizontal-stepper [linear]="isLinear" #stepper>
-        <ng-template matStepperIcon="done">
-            <mat-icon>done</mat-icon>
-        </ng-template>
-        <mat-step [stepControl]="credentialForm" [editable]="false">
-            <ng-template matStepLabel>Code</ng-template>
-            <form [formGroup]="credentialForm">
-                <mat-form-field appearance="legacy">
-                    <input [(ngModel)]="code" matInput placeholder="{{vote_app.vote_app.credential_input_field}}" formControlName="credentialCtrl" required>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper id="stepper">
+    <ng-template matStepperIcon="done">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <mat-step [stepControl]="credentialForm" [editable]="false">
+      <ng-template matStepLabel>Code</ng-template>
+      <form [formGroup]="credentialForm">
+        <mat-form-field appearance="outline">
+          <mat-label>{{vote_app.vote_app.credential_input_field}}</mat-label>
+          <input id="credential_input" [(ngModel)]="code" matInput placeholder="Code"
+                 maxlength="4" formControlName="credential_controller" required>
+          <mat-icon *ngIf='!credentialForm.valid && code != ""' style="color: red">report</mat-icon>
+          <mat-hint *ngIf='!credentialForm.valid && code != ""' style="color: red">Кодът не е валиден.</mat-hint>
+          <mat-icon *ngIf='credentialForm.valid && code != ""' style="color: green">check</mat-icon>
+          <mat-hint *ngIf='credentialForm.valid && code != ""' style="color: green">Кодът е валиден.</mat-hint>
+        </mat-form-field>
+        <div>
+          <button *ngIf="credentialForm.valid" (click)="openSnackBarOnClick(credentialForm.valid,
+          vote_app.vote_app.credential_snackbar_answers.success,
+          vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary"
+          style="margin-top: 10px">
+            Напред
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <ng-template matStepperIcon="done">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <mat-step [stepControl]="voteForm" id="vote_step">
+      <ng-template matStepLabel>Vote</ng-template>
+      <div *ngIf="vote_app.vote_app.vote_finished; then form else chart"></div>
+      <ng-template #form>
+        <form [formGroup]="voteForm">
+          <mat-list role="list">
+            <mat-list-item>
+              <p>{{vote_app.vote_app.main_question}}</p>
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngFor="let i_opinion of vote_app.vote_app.opinions">
+              <mat-checkbox [checked]="opinion === i_opinion.value" (change)="toggleSelect($event, i_opinion.value)"
+                            formControlName="answer_controller" required>
+                {{i_opinion.viewValue}}
+              </mat-checkbox>
+            </mat-list-item>
+            <div *ngIf="opinion === answers.YES">
+              <mat-divider id="mat-divider-vote"></mat-divider>
+              <mat-list-item style="padding-bottom: 30px">
+                <p>{{vote_app.vote_app.sub_question}}</p>
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <mat-form-field appearance="outline" style="width: 250px">
+                  <mat-label>{{vote_app.vote_app.preferences_hint}}</mat-label>
+                  <mat-select [(value)]="meeting_preference" formControlName="meeting_preference_controller" required>
+                    <mat-option *ngFor="let preference of vote_app.vote_app.preference_options" [value]="preference.value">
+                      {{ preference.viewValue }}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
-                <div>
-                    <button (click)="openSnackBarOnClick(credentialForm.valid, 
-          vote_app.vote_app.credential_snackbar_answers.success, 
-          vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary">Напред</button>
-                </div>
-            </form>
-        </mat-step>
-
-        <ng-template matStepperIcon="done">
-            <mat-icon>done</mat-icon>
-        </ng-template>
-        <mat-step [stepControl]="voteForm" id="vote_step">
-            <ng-template matStepLabel>Vote</ng-template>
-            <form [formGroup]="voteForm" *ngIf="!vote_app.vote_app.vote_finished">
-                <mat-list role="list">
-                    <mat-list-item>
-                        <p>{{vote_app.vote_app.main_question}}</p>
-                    </mat-list-item>
-                    <mat-list-item role="listitem" *ngFor="let i_opinion of vote_app.vote_app.opinions">
-                        <mat-checkbox [checked]="opinion === i_opinion.value" (change)="toggleSelect($event, i_opinion.value)" formControlName="opinionCtrl" required>
-                            {{i_opinion.viewValue}}
-                        </mat-checkbox>
-                    </mat-list-item>
-                    <div *ngIf="opinion === opinions.YES">
-                        <mat-divider id="mat-divider-vote"></mat-divider>
-                        <mat-list-item>
-                            <p>{{vote_app.vote_app.sub_question}}</p>
-                        </mat-list-item>
-                        <mat-list-item role="listitem">
-                            <mat-form-field>
-                                <mat-select [(value)]="preference" formControlName="preferenceCtrl" required>
-                                    <mat-option *ngFor="let preference of vote_app.vote_app.preference_options" [value]="preference.value">
-                                        {{ preference.viewValue }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-hint>{{vote_app.vote_app.preferences_hint}}</mat-hint>
-                            </mat-form-field>
-                        </mat-list-item>
-                        <mat-list-item>
-                            <mat-divider></mat-divider>
-                        </mat-list-item>
-                    </div>
-                    <mat-list-item>
-                        <button (click)="openSnackBarOnVote()" mat-stroked-button color="primary">Изпрати</button>
-                    </mat-list-item>
-                </mat-list>
-            </form>
-            <app-chart *ngIf="vote_app.vote_app.vote_finished"></app-chart>
-        </mat-step>
-
-        <mat-step [editable]="false" style="padding: 0 !important;">
-            <ng-template matStepLabel></ng-template>
-            <div id="progress-div" *ngIf="sent == false">
-                <mat-progress-bar id="progressBar" mode="indeterminate"></mat-progress-bar>
-                <mat-card>{{vote_app.vote_app.sending_text}}</mat-card>
+              </mat-list-item>
+              <mat-divider style="margin-top: 10px;"></mat-divider>
             </div>
-            <div id="information-div" *ngIf="sent">
-                <mat-card>
-                    <p>{{vote_app.vote_app.sent_text_header}}</p>
-                    <p>{{vote_app.vote_app.sent_text_footer}}</p>
-                </mat-card>
+            <div *ngIf="meeting_preference != meeting_preferences.UNDEFINED">
+              <mat-list-item style="padding-bottom: 30px">
+                <p>Кога ще можеш?</p>
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <mat-form-field appearance="outline" style="width: 250px">
+                  <mat-label>Моля избери дата</mat-label>
+                  <input matInput [matDatepickerFilter]="meeting_date_filter"
+                         [matDatepicker]="picker"
+                         (dateChange)="meeting_date_change($event)"
+                         formControlName="meeting_date_controller" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </mat-list-item>
+              <mat-divider style="margin-top: 10px;"></mat-divider>
             </div>
-        </mat-step>
-    </mat-horizontal-stepper>
+            <mat-list-item style="margin-top: 20px" *ngIf="has_voted()">
+              <button (click)="openSnackBarOnVote()" mat-stroked-button color="primary">Изпрати</button>
+            </mat-list-item>
+          </mat-list>
+        </form>
+      </ng-template>
+      <ng-template #chart>
+        <app-chart></app-chart>
+      </ng-template>
+    </mat-step>
 
-    <button id="info_button" mat-stroked-button color="primary" (click)="showInfo()" matBadge="{{vote_app.vote_app.info_badge_count}}" matBadgePosition="before" matBadgeColor="accent" matBadgeHidden="{{vote_app.vote_app.info_badge_hidden}}">
+    <mat-step [editable]="false" style="padding: 0 !important;">
+      <ng-template matStepLabel></ng-template>
+      <div id="progress-div" *ngIf="sent == false">
+        <mat-progress-bar id="progressBar" mode="indeterminate"></mat-progress-bar>
+        <mat-card>{{vote_app.vote_app.sending_text}}</mat-card>
+      </div>
+      <div id="information-div" *ngIf="sent">
+        <mat-card>
+          <p>{{vote_app.vote_app.sent_text_header}}</p>
+          <p>{{vote_app.vote_app.sent_text_footer}}</p>
+        </mat-card>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <button id="info_button" mat-stroked-button color="primary" (click)="showInfo()"
+          matBadge="{{vote_app.vote_app.info_badge_count}}" matBadgePosition="before" matBadgeColor="accent"
+          matBadgeHidden="{{vote_app.vote_app.info_badge_hidden}}">
     <mat-icon>info</mat-icon>
   </button>
 </div>

@@ -2,7 +2,7 @@
     "spring_backend": {
         "LOCAL_URL": "http://localhost:8080/",
         "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
-        "BACKEND_URL": "https://boiling-plateau-33382.herokuapp.com/"
+        "BACKEND_URL": "http://localhost:8080/"
     },
     "vote_app": {
         "stepper_1_title": [
@@ -13,10 +13,10 @@
         "info_badge_hidden": "false",
         "credential_input_field": "Въведи Vote Code",
         "credential_snackbar_answers": {
-            "success": "Successful",
+            "success": "Кодът за гласуване е валиден",
             "error": "Вашият vote code не е валиден"
         },
-        "main_question": "Идва ли ти се на 10 май на рожден ден?",
+        "main_question": "Идва ли ти се на на 14.05 или 15.05 на рожден ден?",
         "sub_question": "Къде ти се ходи?",
         "opinions": [{
                 "value": "YES",
@@ -24,7 +24,7 @@
             },
             {
                 "value": "NO",
-                "viewValue": "Не знам / мога / ми се идва"
+                "viewValue": "Не знам / Не мога / Не ми се идва"
             }
         ],
         "preference_options": [{
@@ -42,13 +42,13 @@
         ],
         "vote_snackbar_answers": {
             "success": "Successful",
-            "error": "Моля изберете опция"
+            "error": "Моля избери опция"
         },
-        "preferences_hint": "Моля изберете опция",
+        "preferences_hint": "Моля избери опция",
         "sending_text": "Моля изкачайте, докато cloud сървъра стартира и синхронизира вашия request",
         "sent_text_header": "Мерси за гласа ти.",
         "sent_text_footer": "По всяко време можеш да го промениш чрез клик в/у стъпка 2 или преминавайки през процеса отначало (browser refresh)",
-        "vote_finished": "true",
+        "vote_finished": "false",
         "thank_you_for_responses": "Благодаря за бързите отговори!",
         "response_time": "Средното време за отговор е отнело само <b>0.494</b> дена!",
         "invitation": "Искрено те каня да заповядаш на <b>10.05.2019</b> от <b>18.30</b> в <b>Синият лъв</b> на следния адрес",
