@@ -83,8 +83,13 @@ export class AppComponent {
     this.scroll_to_bottom()
   }
 
+  ngAfterViewChecked()
+  {
+    this.scroll_to_bottom()
+  }
+
   scroll_to_bottom() {
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0,document.body.scrollHeight * 2);
   }
 
   has_voted() {
