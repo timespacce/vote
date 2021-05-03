@@ -56,7 +56,8 @@
                   <mat-label>{{vote_app.vote_app.preferences_hint}}</mat-label>
                   <mat-select [(value)]="meeting_preference" formControlName="meeting_preference_controller" required>
                     <mat-option *ngFor="let preference of vote_app.vote_app.preference_options"
-                                [value]="preference.value">
+                                [value]="preference.value"
+                                (onSelectionChange)="scroll_to_bottom()">
                       {{ preference.viewValue }}
                     </mat-option>
                   </mat-select>
@@ -73,7 +74,8 @@
                   <mat-label>{{vote_app.vote_app.preferences_hint}}</mat-label>
                   <mat-select [(value)]="participation_form" formControlName="participation_form_controller" required>
                     <mat-option *ngFor="let participation_form of vote_app.vote_app.participation_form_options"
-                                [value]="participation_form.value">
+                                [value]="participation_form.value"
+                                (onSelectionChange)="scroll_to_bottom()">
                       {{ participation_form.viewValue }}
                     </mat-option>
                   </mat-select>
