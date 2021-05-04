@@ -35,7 +35,7 @@ mat-hint {
 }
 
 ::ng-deep.mat-badge-content.mat-badge-active {
-    animation: pulse 0.5s ease infinite;
+    animation: pulse 1s ease infinite;
 }
 
 @keyframes pulse {

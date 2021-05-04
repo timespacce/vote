@@ -2,20 +2,20 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 #body {
-    animation: animated_background 5s ease infinite;
-    background: linear-gradient(90deg, #e37350, #c3c52f, #2cca58, #1fa9a3);
+    animation: animated_background 3s ease infinite;
+    background: linear-gradient(90deg, #f3f59d, #e37350, #2cca58, #1fa9a3, #8114A0FF);
     background-size: 700% 1400%;
 }
 
 
 @keyframes animated_background {
 	0% {
-		background-position: 0% 50%
+		background-position: 0% 50%;
   }
 	50% {
-		background-position: 100% 50%
+		background-position: 100% 50%;
   }
 	100% {
-		background-position: 0% 50%
+		background-position: 0% 50%;
 	}
 }

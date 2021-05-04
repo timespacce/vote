@@ -2,7 +2,7 @@
   "spring_backend": {
     "LOCAL_URL": "http://localhost:8080/",
     "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
-    "BACKEND_URL": "http://localhost:8080/"
+    "BACKEND_URL": "https://boiling-plateau-33382.herokuapp.com/"
   },
   "vote_app": {
     "stepper_1_title": [

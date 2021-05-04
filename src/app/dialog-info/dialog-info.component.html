@@ -1,21 +1,26 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Vote App</mat-card-title>
-  </mat-card-header>
+<mat-card style="text-align: center;">
+  <mat-card-title>Vote App</mat-card-title>
   <mat-card-content>
-    <div class="example-container">
-      <mat-form-field>
-        <input value="BUILD-2021-04" matInput type="text" placeholder="App-Version" disabled="true">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Bundle-ID</mat-label>
+        <input value="com.todorinski.vote_app" matInput type="text" placeholder="Bundle-ID" readonly>
       </mat-form-field>
-      <mat-form-field>
-        <input value="11.2" matInput type="text" placeholder="Angular" disabled="true">
+      <mat-form-field appearance="outline">
+        <mat-label>App-Version</mat-label>
+        <input value="BUILD-2021-05" matInput type="text" placeholder="App-Version" readonly>
       </mat-form-field>
-      <mat-form-field>
-        <input value="11.2" matInput type="text" placeholder="Material" disabled="true">
+      <mat-form-field appearance="outline">
+        <mat-label>Angular</mat-label>
+        <input value="11.2" matInput type="text" placeholder="Angular" readonly>
       </mat-form-field>
-      <mat-form-field>
-        <input value="2.4.5" matInput type="text" placeholder="Spring" disabled="true">
+      <mat-form-field appearance="outline">
+        <mat-label>Material</mat-label>
+        <input value="11.2" matInput type="text" placeholder="Material" readonly>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Spring</mat-label>
+        <input value="2.4.5" matInput type="text" placeholder="Spring" readonly>
       </mat-form-field>
     </div>
   </mat-card-content>
