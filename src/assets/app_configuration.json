@@ -2,7 +2,7 @@
   "spring_backend": {
     "LOCAL_URL": "http://localhost:8080/",
     "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
-    "BACKEND_URL": "https://boiling-plateau-33382.herokuapp.com/"
+    "BACKEND_URL": "http://localhost:8080/"
   },
   "vote_app": {
     "stepper_1_title": [
@@ -16,7 +16,7 @@
       "success": "Кодът за гласуване е валиден",
       "error": "Вашият vote code не е валиден"
     },
-    "main_question": "Идва ли ти се на на 14.05 или 15.05 на рожден ден?",
+    "main_question": "Идва ли ти се между 12.05 и 15.05 на рожден ден?",
     "sub_question": "Къде ти се ходи?",
     "opinions": [
       {
@@ -45,7 +45,7 @@
     "participation_form_options": [
       {
         "value": "ONE_PERSON",
-        "viewValue": "Сам ще дойда."
+        "viewValue": "Сам/a ще дойда."
       },
       {
         "value": "TWO_OR_MORE_PERSON",

@@ -12,16 +12,16 @@
           <mat-label>{{vote_app.vote_app.credential_input_field}}</mat-label>
           <input id="credential_input" [(ngModel)]="code" matInput placeholder="Code"
                  maxlength="4" formControlName="credential_controller" required>
-          <mat-icon *ngIf='!credentialForm.valid && code != ""' style="color: red">report</mat-icon>
-          <mat-hint *ngIf='!credentialForm.valid && code != ""' style="color: red">Кодът не е валиден.</mat-hint>
-          <mat-icon *ngIf='credentialForm.valid && code != ""' style="color: green">check</mat-icon>
-          <mat-hint *ngIf='credentialForm.valid && code != ""' style="color: green">Кодът е валиден.</mat-hint>
+          <mat-icon *ngIf='!credentialForm.valid && code != ""' style="color: red!important;">report</mat-icon>
+          <mat-hint *ngIf='!credentialForm.valid && code != ""' style="color: red!important;">Кодът не е валиден.</mat-hint>
+          <mat-icon *ngIf='credentialForm.valid && code != ""' style="color: green!important;">check</mat-icon>
+          <mat-hint *ngIf='credentialForm.valid && code != ""' style="color: green!important;">Кодът е валиден.</mat-hint>
         </mat-form-field>
         <div>
           <button *ngIf="credentialForm.valid" (click)="openSnackBarOnClick(credentialForm.valid,
           vote_app.vote_app.credential_snackbar_answers.success,
           vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary"
-          style="margin-top: 10px">
+                  style="margin-top: 10px">
             Напред
           </button>
         </div>
@@ -48,7 +48,7 @@
             </mat-list-item>
             <div *ngIf="opinion === answers.YES">
               <mat-divider id="mat-divider-vote"></mat-divider>
-              <mat-list-item style="padding-bottom: 30px">
+              <mat-list-item style="padding-bottom: 20px">
                 <p>{{vote_app.vote_app.sub_question}}</p>
               </mat-list-item>
               <mat-list-item role="listitem">
@@ -61,12 +61,13 @@
                       {{ preference.viewValue }}
                     </mat-option>
                   </mat-select>
+                  <mat-hint>Алтернативни предложения са welcome.</mat-hint>
                 </mat-form-field>
               </mat-list-item>
-              <mat-divider style="margin-top: 10px;"></mat-divider>
+              <mat-divider style="margin-top: 40px;"></mat-divider>
             </div>
             <div *ngIf="meeting_preference != meeting_preferences.UNDEFINED">
-              <mat-list-item style="padding-bottom: 30px">
+              <mat-list-item style="padding-bottom: 20px">
                 <p>Ще дойдеш ли с някого?</p>
               </mat-list-item>
               <mat-list-item role="listitem">
@@ -79,24 +80,39 @@
                       {{ participation_form.viewValue }}
                     </mat-option>
                   </mat-select>
+                  <mat-hint>Например приятел/ка.</mat-hint>
                 </mat-form-field>
               </mat-list-item>
-              <mat-divider style="margin-top: 10px;"></mat-divider>
+              <mat-divider style="margin-top: 40px;"></mat-divider>
             </div>
             <div *ngIf="participation_form != participation_forms.UNDEFINED">
-              <mat-list-item style="padding-bottom: 30px">
-                <p>Кога ще можеш?</p>
+              <mat-list-item style="padding-bottom: 20px">
+                <p>Кои дни си свободен?</p>
               </mat-list-item>
               <mat-list-item role="listitem">
-                <mat-form-field appearance="outline" style="width: 250px">
-                  <mat-label>Моля избери дата</mat-label>
-                  <input matInput [matDatepickerFilter]="meeting_date_filter"
-                         [matDatepicker]="picker"
-                         (dateChange)="meeting_date_change($event)"
-                         formControlName="meeting_date_controller" required readonly>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                <mat-form-field [formGroup]="voteForm" appearance="outline" style="width: 250px"
+                                [matMenuTriggerFor]="appMenu">
+                  <mat-label>Моля избери дати</mat-label>
+                  <mat-icon matSuffix>calendar_today</mat-icon>
+                  <input formControlName="meeting_date_controller" matInput required readonly>
+                  <mat-hint>Можеш да избереш повече от една дата.</mat-hint>
                 </mat-form-field>
+                <mat-menu #appMenu="matMenu" class="drop-calendar">
+                  <div (click)="$event.stopPropagation()">
+                    <mat-calendar #calendar
+                                  (selectedChange)="select($event,calendar)"
+                                  [dateClass]="isSelected"
+                                  [dateFilter]="meeting_date_filter">
+                    </mat-calendar>
+                  </div>
+                </mat-menu>
+              </mat-list-item>
+              <div style="margin-top: 40px;"></div>
+              <mat-list-item style="margin-top: -10px" *ngFor="let date of selected_days_list; index as i">
+                <p style="color: green">
+                  {{i + 1}} : {{date}}
+                  <mat-icon>check</mat-icon>
+                </p>
               </mat-list-item>
               <mat-divider style="margin-top: 10px;"></mat-divider>
             </div>

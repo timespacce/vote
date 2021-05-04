@@ -21,7 +21,7 @@
 }
 
 .mat-icon {
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 #info_button {
@@ -30,8 +30,12 @@
     right: 5px;
 }
 
+mat-hint {
+  color: #3f51b5!important;
+}
+
 ::ng-deep.mat-badge-content.mat-badge-active {
-    animation: pulse 1s ease infinite;
+    animation: pulse 0.5s ease infinite;
 }
 
 @keyframes pulse {
@@ -51,4 +55,14 @@
 
 .cool-class {
     padding: 5px 5px 5px 5px;
+}
+
+.mat-calendar-body-cell.selected
+{
+  background-color:#3f51b5!important;
+  border-radius: 50%
+}
+.drop-calendar
+{
+  width:30rem
 }

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {MatCheckboxChange} from '@angular/material/checkbox'
@@ -18,7 +18,8 @@ import {DatePipe} from "@angular/common";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   /// meta
@@ -41,11 +42,14 @@ export class AppComponent {
   opinion: ANSWER = ANSWER.UNDEFINED
   meeting_preference: MEETING_PREFERENCE = MEETING_PREFERENCE.UNDEFINED
   participation_form: PARTICIPATION_FORM = PARTICIPATION_FORM.UNDEFINED
-  meeting_date: string = ""
+  selected_days_list = []
+  selected_days = ""
+
   meeting_date_filter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDate();
-    // Prevent Saturday and Sunday from being selected.
-    return day == 14 || day == 15;
+    const time = (d || new Date())
+    const day = time.getDate();
+    const month = time.getMonth()
+    return month == 4 && day >= 12 && day <= 15;
   }
 
   sent: boolean = true
@@ -78,18 +82,31 @@ export class AppComponent {
     }
   }
 
-  meeting_date_change(event: MatDatepickerInputEvent<any>) {
-    this.meeting_date = this.datePipe.transform(event.value, 'yyyy-MM-dd HH:mm');
+  isSelected = (event: any) => {
+    const date = this.datePipe.transform(event, 'yyyy-MM-dd');
+    return this.selected_days_list.find(x => x == date) ? "selected" : null;
+  };
+
+  select(event: any, calendar: any) {
+    const date = this.datePipe.transform(event, 'yyyy-MM-dd');
+    const index = this.selected_days_list.findIndex(x => x == date);
+    if (index < 0) this.selected_days_list.push(date);
+    else this.selected_days_list.splice(index, 1);
+    calendar.updateTodaysDate();
+    this.selected_days = this.selected_days_list.join(', ')
+    this.voteForm.controls['meeting_date_controller'].setValue(this.selected_days_list)
     this.scroll_to_bottom()
   }
 
   scroll_to_bottom() {
-    setTimeout(x => {window.scrollTo(0,document.body.scrollHeight);},200);
+    setTimeout(x => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 200);
   }
 
   has_voted() {
-    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.participation_form != PARTICIPATION_FORM.UNDEFINED && this.meeting_date != ""
-    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.participation_form == PARTICIPATION_FORM.UNDEFINED && this.meeting_date == ""
+    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.participation_form != PARTICIPATION_FORM.UNDEFINED && this.selected_days_list.length > 0
+    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.participation_form == PARTICIPATION_FORM.UNDEFINED && this.selected_days_list.length == 0
 
     let accept: boolean = this.opinion == ANSWER.YES && voted
     let declined: boolean = this.opinion == ANSWER.NO && not_voted
@@ -120,7 +137,7 @@ export class AppComponent {
       answer: this.opinion,
       meeting_preferences: [this.meeting_preference],
       participation_form: this.participation_form,
-      meeting_date: this.meeting_date
+      selected_days: this.selected_days_list
     }
 
     /// sent to backend and on success stop the notification
@@ -140,7 +157,7 @@ export class AppComponent {
       this.opinion = ANSWER.UNDEFINED
       this.meeting_preference = MEETING_PREFERENCE.UNDEFINED
       this.participation_form = PARTICIPATION_FORM.UNDEFINED
-      this.meeting_date = ""
+      this.selected_days_list = []
       this.voteForm.get("answer_controller").reset()
       this.voteForm.get("meeting_preference_controller").reset()
       this.voteForm.get("participation_form_controller").reset()
@@ -159,10 +176,10 @@ export class AppComponent {
       this.opinion = value
       this.meeting_preference = MEETING_PREFERENCE.UNDEFINED
       this.participation_form = PARTICIPATION_FORM.UNDEFINED
-      this.meeting_date = ""
+      this.selected_days_list = []
       this.voteForm.get("meeting_preference_controller").setValue(this.meeting_preference)
       this.voteForm.get("participation_form_controller").setValue(this.participation_form)
-      this.voteForm.get("meeting_date_controller").setValue(this.meeting_date)
+      this.voteForm.get("meeting_date_controller").setValue(this.selected_days_list)
     }
   }
 
