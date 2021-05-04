@@ -119,7 +119,7 @@ export class AppComponent {
 
     if (voted) {
       this._snackBar.open(this.vote_app.vote_app.vote_snackbar_answers.success, '', {duration: 1000})
-      this.voteForm.get("submitCtrl").setValue(true)
+      this.stepper.selected.completed = true;
       this.stepper.next()
       this.showResult()
     } else {
