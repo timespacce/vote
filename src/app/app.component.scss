@@ -1,0 +1,82 @@
+#stepper {
+  background: rgba(255, 255, 255, 1.00);
+}
+
+$char-w: 1.0ch;
+$char-gap: 1.0*$char-w;
+$char-count: 4;
+$input-width: $char-count*($char-w + $char-gap);
+
+#credential_input {
+  width: $input-width;
+  border: none;
+  padding: 0;
+  background: repeating-linear-gradient(90deg,
+    #3f51b5 0, #3f51b5 $char-w,
+    transparent 0, transparent $char-w + $char-gap)
+    0 100%/ #{$input-width + $char-gap} 2px no-repeat;
+  color: #3f51b5;
+  font: 5ch droid sans mono, consolas, monospace;
+  letter-spacing: $char-gap;
+}
+
+#credential_input:focus {
+  outline: none;
+  color: #3f51b5;
+}
+
+.mat-icon {
+  vertical-align: bottom;
+}
+
+#info_button {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+}
+
+mat-hint {
+  color: #3f51b5 !important;
+}
+
+::ng-deep.mat-badge-content.mat-badge-active {
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.3);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.cool-class {
+  padding: 5px 5px 5px 5px;
+}
+
+.mat-calendar-body-cell.selected {
+  background-color: #3f51b5 !important;
+  border-radius: 50%
+}
+
+.drop-calendar {
+  width: 30rem
+}
+
+.select-menu {
+  padding-top: 50px;
+  width: 350px;
+}
+
+.item-line {
+  margin-top: 50px !important;
+  margin-bottom: 15px !important;
+}

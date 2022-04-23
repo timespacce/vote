@@ -1,4 +1,4 @@
-<div id="main-div">
+<div id="main-div" style="position: relative">
   <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
 
   <mat-horizontal-stepper [linear]="isLinear" #stepper id="stepper">
@@ -8,16 +8,18 @@
     <mat-step [stepControl]="credentialForm" [editable]="false">
       <ng-template matStepLabel>Code</ng-template>
       <form [formGroup]="credentialForm" style="text-align: center">
-        <mat-form-field appearance="outline">
-          <mat-label style="font-size:medium">{{vote_app.vote_app.credential_input_field}}</mat-label>
+        <mat-form-field appearance="outline" style="width: 250px">
+          <mat-label>{{vote_app.vote_app.credential_input_field}}</mat-label>
           <input id="credential_input" [(ngModel)]="code" matInput placeholder="code" maxlength="4" formControlName="credential_controller" required>
           <mat-icon *ngIf='!credentialForm.valid && code != ""' style="color: red!important;">report</mat-icon>
           <mat-icon *ngIf='credentialForm.valid && code != ""' style="color: green!important;">check</mat-icon>
         </mat-form-field>
         <div>
+          <mat-progress-bar mode="buffer" style="margin:0 auto; width: 250px"></mat-progress-bar>
           <button *ngIf="credentialForm.valid" (click)="openSnackBarOnClick(credentialForm.valid,
           vote_app.vote_app.credential_snackbar_answers.success,
-          vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary">
+          vote_app.vote_app.credential_snackbar_answers.error)" mat-stroked-button matStepperNext color="primary"
+                  style="margin-top: 25px">
             Напред
           </button>
         </div>
@@ -125,10 +127,9 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
-  <button id="info_button" mat-flat-button color="white" (click)="showInfo()"
-          matBadge="{{vote_app.vote_app.info_badge_count}}" matBadgePosition="before" matBadgeColor="accent"
-          matBadgeHidden="{{vote_app.vote_app.info_badge_hidden}}">
-    <mat-icon color="primary">info</mat-icon>
-  </button>
 </div>
+<button id="info_button" mat-flat-button color="white" (click)="showInfo()"
+        matBadge="{{vote_app.vote_app.info_badge_count}}" matBadgePosition="before" matBadgeColor="accent"
+        matBadgeHidden="{{vote_app.vote_app.info_badge_hidden}}">
+  <mat-icon color="primary">info</mat-icon>
+</button>

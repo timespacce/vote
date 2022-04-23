@@ -1,9 +1,9 @@
 @use '@angular/material' as mat;
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
-#body {
+body {
   animation: animated_background 3s ease infinite;
-  background: linear-gradient(90deg, #f3f59d, #e37350, #2cca58, #1fa9a3, #8114A0FF);
+  background: linear-gradient(90deg, #e4e5ac, #c18d7d, #89ca9b, #689d9a, #8114A0FF);
   background-size: 700% 1400%;
 }
 
