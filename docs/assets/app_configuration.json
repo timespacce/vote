@@ -11,13 +11,13 @@
     ],
     "info_badge_count": "1",
     "info_badge_hidden": "false",
-    "credential_input_field": "Въведи Vote Code",
+    "credential_input_field": "въведи vote code",
     "credential_snackbar_answers": {
       "success": "Кодът за гласуване е валиден",
       "error": "Вашият vote code не е валиден"
     },
-    "main_question": "Идва ли ти се между 12.05 и 15.05 на рожден ден?",
-    "sub_question": "Къде ти се ходи?",
+    "main_question": "Идва ли ти се на 14.05 или 15.05 на рожден ден?",
+    "sub_question": "Къде би ти се ходило?",
     "opinions": [
       {
         "value": "YES",
