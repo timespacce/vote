@@ -66,3 +66,13 @@ mat-hint {
 {
   width:30rem
 }
+
+.select-menu {
+  padding-top: 50px;
+  width: 350px;
+}
+
+.item-line {
+  margin-top: 50px!important;
+  margin-bottom: 15px!important;
+}

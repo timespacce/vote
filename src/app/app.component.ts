@@ -49,7 +49,7 @@ export class AppComponent {
     const time = (d || new Date())
     const day = time.getDate();
     const month = time.getMonth()
-    return month == 4 && day >= 12 && day <= 15;
+    return month == 4 && day >= 14 && day <= 15;
   }
 
   sent: boolean = true

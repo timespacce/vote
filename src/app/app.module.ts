@@ -53,58 +53,57 @@ import * as solidGauge from 'highcharts/modules/solid-gauge.src';
 
 
 @NgModule({
-  declarations: [
-    // CUSTOM
-    AppComponent,
-    ChartComponent,
-    DialogInfoComponent
-  ],
-  imports: [
-    // CORE
-    HttpClientModule,
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    // MATERIAL
-    MatCheckboxModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatBadgeModule,
-    MatToolbarModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatExpansionModule,
-    MatButtonToggleModule,
-    MatChipsModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule
-  ],
-  entryComponents: [DialogInfoComponent],
-  providers: [DatePipe, {provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD]}],
-  bootstrap: [AppComponent /*ChartComponent*/]
+    declarations: [
+        // CUSTOM
+        AppComponent,
+        ChartComponent,
+        DialogInfoComponent
+    ],
+    imports: [
+        // CORE
+        HttpClientModule,
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        // MATERIAL
+        MatCheckboxModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatBadgeModule,
+        MatToolbarModule,
+        MatListModule,
+        MatGridListModule,
+        MatCardModule,
+        MatStepperModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatButtonToggleModule,
+        MatChipsModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
+    ],
+    providers: [DatePipe, { provide: HIGHCHARTS_MODULES, useFactory: () => [more, solidGauge, threeD] }],
+    bootstrap: [AppComponent /*ChartComponent*/]
 })
 export class AppModule {
 }
