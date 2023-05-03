@@ -1,8 +1,8 @@
 {
   "spring_backend": {
     "LOCAL_URL": "http://localhost:8080/",
-    "REMOTE_URL": "https://boiling-plateau-33382.herokuapp.com/",
-    "BACKEND_URL": "https://boiling-plateau-33382.herokuapp.com/"
+    "REMOTE_URL": "https://vote-backend-service.herokuapp.com/",
+    "BACKEND_URL": "https://vote-backend-service.herokuapp.com/"
   },
   "vote_app": {
     "stepper_1_title": [
@@ -16,30 +16,42 @@
       "success": "Кодът за гласуване е валиден",
       "error": "Вашият vote code не е валиден"
     },
-    "main_question": "Искрено те каня на 14.05 или 15.05 на рожден ден. Ще можеш ли да дойдеш?",
-    "sub_question": "Къде би ти се ходило?",
+    "main_question": "Рожден ден на 13.05?",
     "opinions": [
       {
-        "value": "YES",
-        "viewValue": "Да"
+        "value": "O1",
+        "viewValue": "Брой ме. Ще дойда."
       },
       {
-        "value": "NO",
-        "viewValue": "Не знам / Не мога / Не ми се идва"
+        "value": "O2",
+        "viewValue": "Брой ме, но няма да дойда."
+      },
+      {
+        "value": "O3",
+        "viewValue": "Не ме брой, но ще да дойда."
+      },
+      {
+        "value": "O4",
+        "viewValue": "Не ме брой. Няма да дойда."
+      },
+      {
+        "value": "O5",
+        "viewValue": "KO KAZA?"
       }
     ],
+    "sub_question": "Къде ще ходим?",
     "preference_options": [
       {
         "value": "EAT_AND_DRINK",
-        "viewValue": "Някъде да седнем и хапнем"
+        "viewValue": "Е, да седнем и да хапнем някъде."
       },
       {
         "value": "DISCO",
-        "viewValue": "Опция 1) и може диско"
+        "viewValue": "PLAZA"
       },
       {
         "value": "I_DONT_CARE",
-        "viewValue": "? ? ? se mi e taa"
+        "viewValue": "? ? ? sE Mi e Taa"
       }
     ],
     "participation_form_options": [

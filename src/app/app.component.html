@@ -36,14 +36,14 @@
         <form [formGroup]="voteForm">
           <mat-list role="list">
             <mat-list-item>
-              <p>{{vote_app.vote_app.main_question}}</p>
+              <p [innerHTML]="vote_app.vote_app.main_question"></p>
             </mat-list-item>
             <mat-list-item role="listitem" *ngFor="let i_opinion of vote_app.vote_app.opinions">
               <mat-checkbox [checked]="opinion === i_opinion.value" (change)="toggleSelect($event, i_opinion.value)" formControlName="answer_controller" required>
                 {{i_opinion.viewValue}}
               </mat-checkbox>
             </mat-list-item>
-            <div *ngIf="opinion === answers.YES">
+            <div *ngIf="opinion === answers.O1">
               <mat-divider style="margin-top: 5px; margin-bottom: 15px"></mat-divider>
               <mat-list-item role="listitem">
                 <mat-form-field appearance="outline" class="select-menu">
@@ -74,7 +74,7 @@
               </mat-list-item>
               <mat-divider class="item-line"></mat-divider>
             </div>
-            <div *ngIf="participation_form != participation_forms.UNDEFINED">
+            <div *ngIf="false && participation_form != participation_forms.UNDEFINED">
               <mat-list-item role="listitem">
                 <mat-form-field [formGroup]="voteForm" appearance="outline" class="select-menu"
                                 [matMenuTriggerFor]="appMenu">

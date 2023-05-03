@@ -69,7 +69,7 @@ export class AppComponent {
       'answer_controller': new FormControl(null, [Validators.required]),
       'meeting_preference_controller': new FormControl(null, [Validators.required]),
       'participation_form_controller': new FormControl(null, [Validators.required]),
-      'meeting_date_controller': new FormControl(null, [Validators.required]),
+      // 'meeting_date_controller': new FormControl(null, [Validators.required]),
       'submitCtrl': new FormControl(null, [Validators.required])
     })
   }
@@ -105,11 +105,13 @@ export class AppComponent {
   }
 
   has_voted() {
-    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.participation_form != PARTICIPATION_FORM.UNDEFINED && this.selected_days_list.length > 0
-    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.participation_form == PARTICIPATION_FORM.UNDEFINED && this.selected_days_list.length == 0
+    let voted = this.meeting_preference != MEETING_PREFERENCE.UNDEFINED && this.participation_form != PARTICIPATION_FORM.UNDEFINED
+    // && this.selected_days_list.length > 0
+    let not_voted = this.meeting_preference == MEETING_PREFERENCE.UNDEFINED && this.participation_form == PARTICIPATION_FORM.UNDEFINED
+    // && this.selected_days_list.length == 0
 
-    let accept: boolean = this.opinion == ANSWER.YES && voted
-    let declined: boolean = this.opinion == ANSWER.NO && not_voted
+    let accept: boolean = this.opinion == ANSWER.O1 && voted
+    let declined: boolean = this.opinion != ANSWER.O1 && not_voted
 
     return accept || declined
   }
@@ -161,26 +163,25 @@ export class AppComponent {
       this.voteForm.get("answer_controller").reset()
       this.voteForm.get("meeting_preference_controller").reset()
       this.voteForm.get("participation_form_controller").reset()
-      this.voteForm.get("meeting_date_controller").reset()
+      // this.voteForm.get("meeting_date_controller").reset()
       return
     }
 
-    /// yes
-    if (value == ANSWER.YES) {
+    if (value == ANSWER.O1) {
+      /// yes
       this.opinion = value
       return
-    }
-
-    /// no
-    if (value == ANSWER.NO) {
+    } else {
+      /// no
       this.opinion = value
       this.meeting_preference = MEETING_PREFERENCE.UNDEFINED
       this.participation_form = PARTICIPATION_FORM.UNDEFINED
       this.selected_days_list = []
       this.voteForm.get("meeting_preference_controller").setValue(this.meeting_preference)
       this.voteForm.get("participation_form_controller").setValue(this.participation_form)
-      this.voteForm.get("meeting_date_controller").setValue(this.selected_days_list)
+      // this.voteForm.get("meeting_date_controller").setValue(this.selected_days_list)
     }
+
   }
 
   showInfo() {
